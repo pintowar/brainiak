@@ -4,11 +4,11 @@ package brainiak.search
  * Created by thiago on 1/17/14.
  */
 trait Strategy {
-  def <<(state: State): Strategy
+  def <<(state: Node): Strategy
 
   def isEmpty: Boolean
 
-  def contains(state: State): Boolean
+  def contains(state: Node): Boolean
 
-  def actual: State
+  def actual: Node
 }

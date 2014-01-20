@@ -3,7 +3,7 @@ package brainiak.search.strategies
 import org.scalatest.FunSuite
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import brainiak.search.State
+import brainiak.search.Node
 
 /*import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
@@ -14,16 +14,16 @@ import org.scalatest.junit.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class DepthFirstTest extends FunSuite {
 
-  class Mock(val value: Int) extends State {
-    def trackParent: State = null
+  class Mock(val value: Int) extends Node {
+    def trackParent: Node = null
 
-    def children(except: Set[State]): Set[State] = null
+    def children(except: Set[Node]): Set[Node] = null
 
     def myDepth: Int = 0
 
     def myCost: Double = 0
 
-    def -(o: State): Double = 0.0
+    def -(o: Node): Double = 0.0
 
     override def equals(o: Any) = o match {
       case that: Mock => that.value == value

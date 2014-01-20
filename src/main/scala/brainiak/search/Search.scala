@@ -10,20 +10,20 @@ trait Search {
   def inTime(init: Long, timeLimit: Long): Boolean =
     timeLimit <= 0 || (System.currentTimeMillis() - init) <= timeLimit
 
-  def find(problem: Problem, strategy: Strategy, timeLimit: Long): Problem = {
-    var visited: Set[State] = Set.empty[State]
+  def find(problem: Problem, strategy: Strategy, timeLimit: Long): Node = {
+    var visited: Set[Node] = Set.empty[Node]
     strategy << problem.initialState
     val init: Long = System.currentTimeMillis()
-    while (!strategy.isEmpty && !problem.goalAchieved && inTime(init, timeLimit) ) {
+    while (!strategy.isEmpty && !problem.goalAchieved && inTime(init, timeLimit)) {
       val actual = strategy.actual
       visited = visited + actual
       problem updateGoal actual
-      val next = actual children (if (graph) visited else Set.empty[State])
+      val next = actual children (if (graph) visited else Set.empty[Node])
       next.foreach(s => if (!problem.cutBranch(s)) strategy << s)
     }
-    problem
+    problem.current
   }
 
-  def find(problem: Problem, strategy: Strategy): Problem =
+  def find(problem: Problem, strategy: Strategy): Node =
     find(problem, strategy, -1)
 }

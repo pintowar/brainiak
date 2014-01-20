@@ -1,12 +1,12 @@
-package brainiak.npuzzle
+package brainiak.examples.npuzzle
 
-import brainiak.search.State
+import brainiak.search.Node
 import scala.util.Random
 
 /**
  * Created by thiago on 1/18/14.
  */
-class Node(val parent: State, val depth: Int, val cost: Double, val state: List[Int]) extends State {
+class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state: List[Int]) extends Node {
   def this(state: List[Int]) = this(null, 0, 0, state)
 
   def this(n: Int) = this(null, 0, 0, Random.shuffle((0 until n).toList))
@@ -21,7 +21,7 @@ class Node(val parent: State, val depth: Int, val cost: Double, val state: List[
     state.updated(zeroIdx, state(zeroIdx + direction)).updated(zeroIdx + direction, 0)
   }
 
-  def trackParent: State = parent
+  def trackParent: Node = parent
 
   def nextIdx: List[Int] = {
     List(rowSize, 1, -rowSize, -1).filter {
@@ -37,20 +37,20 @@ class Node(val parent: State, val depth: Int, val cost: Double, val state: List[
 
   def myCost: Double = cost
 
-  def -(o: State): Double = o match {
-    case that: Node => this.state.zip(that.state).filter(t => t._1 != t._2).size
-    case _ => Double.MaxValue
+  def -(o: Node): Double = o match {
+    case that: NPuzzleNode => this.state.zip(that.state).count(t => t._1 != t._2)
+    case _ => Double.PositiveInfinity
   }
 
-  def children(except: Set[State]): Set[State] =
-    (nextIdx.map(it => new Node(this, depth + 1, cost + 1, move(it)))
-      .toSet -- except)
+  def children(except: Set[Node]): Set[Node] =
+    nextIdx.map(it => new NPuzzleNode(this, depth + 1, cost + 1, move(it)))
+      .toSet -- except
 
   override def toString: String =
     state.sliding(rowSize, rowSize).map(seg => seg.mkString("|")).mkString("\n")
 
   override def equals(o: Any) = o match {
-    case that: Node => that.state == state
+    case that: NPuzzleNode => that.state == state
     case _ => false
   }
 

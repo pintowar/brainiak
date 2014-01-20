@@ -1,26 +1,32 @@
 package brainiak.search.strategies
 
-import brainiak.search.{State, Strategy}
+import brainiak.search.{Node, Strategy}
 import scala.collection.mutable
 
 /**
  * Created by thiago on 1/17/14.
  */
-class BestFirst(val heuristic: State => Double) extends Strategy {
-  val HeuristicOrdering = new Ordering[State] {
-    def compare(a : State, b : State) =
+object BestFirst {
+  def apply(heuristic: Node => Double): BestFirst = {
+    new BestFirst(heuristic)
+  }
+}
+
+class BestFirst(val heuristic: Node => Double) extends Strategy {
+  val HeuristicOrdering = new Ordering[Node] {
+    def compare(a: Node, b: Node) =
       (b.myCost + heuristic(b)).compare(a.myCost + heuristic(a))
   }
-  var queue: mutable.PriorityQueue[State] = new mutable.PriorityQueue[State]()(HeuristicOrdering)
+  var queue: mutable.PriorityQueue[Node] = new mutable.PriorityQueue[Node]()(HeuristicOrdering)
 
-  def <<(state: State): Strategy = {
-    queue enqueue state
+  def <<(state: Node): Strategy = {
+    if (!queue.exists(n => n == state)) queue enqueue state
     this
   }
 
-  def contains(state: State): Boolean = queue.toQueue.contains(state)
+  def contains(state: Node): Boolean = queue.exists(n => n == state)
 
   def isEmpty: Boolean = queue.isEmpty
 
-  def actual: State = queue.dequeue()
+  def actual: Node = queue.dequeue()
 }

@@ -3,7 +3,7 @@ package brainiak.search.strategies
 import org.scalatest.FunSuite
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import brainiak.search.State
+import brainiak.search.Node
 
 /*import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
@@ -14,16 +14,16 @@ import org.scalatest.junit.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class BestFirstTest extends FunSuite {
 
-  class Mock(val value: Int) extends State {
-    def trackParent: State = null
+  class Mock(val value: Int) extends Node {
+    def trackParent: Node = null
 
-    def children(except: Set[State]): Set[State] = null
+    def children(except: Set[Node]): Set[Node] = null
 
     def myDepth: Int = 0
 
     def myCost: Double = 0
 
-    def -(o: State): Double = o match {
+    def -(o: Node): Double = o match {
       case that: Mock => value - that.value
       case _ => Double.MaxValue
     }
@@ -33,7 +33,7 @@ class BestFirstTest extends FunSuite {
       case _ => false
     }
 
-    override def toString:String = value.toString
+    override def toString: String = value.toString
   }
 
   test("teste best function") {
