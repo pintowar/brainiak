@@ -10,8 +10,8 @@ import brainiak.search.types.GraphSearch
  */
 object Main {
   def main(args: Array[String]) {
-    val problem = new NPuzzleProblem(new NPuzzleNode(List(8, 1, 7, 4, 5, 6, 2, 3, 0)))
-    val search = GraphSearch.apply
+    val problem = NPuzzleProblem(NPuzzleNode(List(8, 1, 7, 4, 5, 6, 2, 3, 0)))
+    val search = GraphSearch()
     val strategy = BestFirst(st => st - problem.goal)
     val init = System.currentTimeMillis()
     val path = search.find(problem, strategy).path

@@ -5,6 +5,10 @@ import brainiak.search.{Node, Problem}
 /**
  * Created by thiago on 1/18/14.
  */
+object NPuzzleProblem {
+  def apply(init: Node): NPuzzleProblem = new NPuzzleProblem(init)
+}
+
 class NPuzzleProblem(val init: Node) extends Problem {
   var actual: Node = init
 

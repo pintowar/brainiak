@@ -6,7 +6,7 @@ import brainiak.search.Search
  * Created by thiago on 1/18/14.
  */
 object TreeSearch {
-  def apply: TreeSearch = new TreeSearch
+  def apply(): TreeSearch = new TreeSearch
 }
 
 class TreeSearch extends Search {

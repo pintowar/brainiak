@@ -6,6 +6,17 @@ import scala.util.Random
 /**
  * Created by thiago on 1/18/14.
  */
+object NPuzzleNode {
+  def apply(parent: Node, depth: Int, cost: Double, state: List[Int]): NPuzzleNode =
+    new NPuzzleNode(parent, depth, cost, state)
+
+  def apply(state: List[Int]): NPuzzleNode = new NPuzzleNode(state)
+
+  def apply(n: Int): NPuzzleNode = new NPuzzleNode(n)
+
+  def apply(): NPuzzleNode = new NPuzzleNode()
+}
+
 class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state: List[Int]) extends Node {
   def this(state: List[Int]) = this(null, 0, 0, state)
 
