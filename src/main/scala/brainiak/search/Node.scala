@@ -8,7 +8,7 @@ trait Node {
 
   def trackParent: Node
 
-  def children(except: Set[Node]): Set[Node]
+  def successors(except: Set[Node]): Set[Node]
 
   def myDepth: Int
 

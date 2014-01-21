@@ -53,7 +53,7 @@ class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state:
     case _ => Double.PositiveInfinity
   }
 
-  def children(except: Set[Node]): Set[Node] =
+  def successors(except: Set[Node]): Set[Node] =
     nextIdx.map(it => new NPuzzleNode(this, depth + 1, cost + 1, move(it)))
       .toSet -- except
 

@@ -18,7 +18,7 @@ trait Search {
       val actual = strategy.actual
       visited = visited + actual
       problem updateGoal actual
-      val next = actual children (if (graph) visited else Set.empty[Node])
+      val next = actual successors (if (graph) visited else Set.empty[Node])
       next.foreach(s => if (!problem.cutBranch(s)) strategy << s)
     }
     problem.current

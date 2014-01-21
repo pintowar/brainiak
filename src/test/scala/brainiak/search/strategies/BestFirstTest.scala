@@ -17,7 +17,7 @@ class BestFirstTest extends FunSuite {
   class Mock(val value: Int) extends Node {
     def trackParent: Node = null
 
-    def children(except: Set[Node]): Set[Node] = null
+    def successors(except: Set[Node]): Set[Node] = null
 
     def myDepth: Int = 0
 
