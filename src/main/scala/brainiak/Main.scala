@@ -19,6 +19,5 @@ object Main {
     path foreach println
     println(s"states: ${path.size}, action: ${path.size - 1}")
     println(s"${end - init} ms")
-    //List(1)
   }
 }
