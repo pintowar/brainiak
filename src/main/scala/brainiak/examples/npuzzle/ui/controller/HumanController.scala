@@ -14,7 +14,7 @@ class HumanController(val b: Board) extends BasicController {
     if (evt.getCode.isArrowKey) {
       val directions = Map(16 -> 1, 17 -> 3, 18 -> -1, 19 -> -3)
       val target = directions(evt.getCode.ordinal())
-      if (board.puzzleState.canMove(target)) channel.onNext(target)
+      if (board.puzzleState.canMove(target)) queue.offer(target)
     }
   }
 }

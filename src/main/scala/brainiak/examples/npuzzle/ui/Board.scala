@@ -20,18 +20,21 @@ class Board extends StackPane {
 
   val controller: BasicController = new HumanController(this)
   var puzzleState: NPuzzleNode = null
-  var movingAnimation: Boolean = false
   var blankIndex: Int = -1
+  @volatile var movingAnimation: Boolean = false
   paint(NPuzzleNode())
 
-  def moveAnimation(target: Int) = {
+  def moveAnimation(target: Int) = synchronized {
     if (!movingAnimation) {
+      movingAnimation = true
       val next = NPuzzleNode(puzzleState.move(target))
-      val movingHoax = children.remove(blankIndex + target)
-      children.add(movingHoax)
+      val movingHoax = children.get(blankIndex + target)
       val tt = createTransition(movingHoax, target)
-      tt.onFinishedProperty().set(new EventHandler[ActionEvent] {
-        override def handle(event: ActionEvent): Unit = paint(next)
+      tt.setOnFinished(new EventHandler[ActionEvent] {
+        override def handle(event: ActionEvent): Unit = {
+          paint(next)
+          movingAnimation = false
+        }
       })
       tt.play()
     }
@@ -40,7 +43,7 @@ class Board extends StackPane {
   def createTransition(node: Node, target: Int) = {
     val tt = TranslateTransitionBuilder.create()
       .node(node)
-    //.duration(Duration.millis(400))
+    //.duration(Duration.millis(700))
     if (math.abs(target) == 1) tt.byX(target * -150)
     else tt.byY(if (target > 0) -150 else 150)
     tt.build()

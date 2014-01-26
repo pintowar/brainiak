@@ -19,7 +19,8 @@ object Hoax {
 
 class Hoax(val value: Int, val wid: Double, val hei: Double) extends StackPane {
   val self = this
-  content = Seq(createRectangle(), createLabel())
+  val aux = Seq(createRectangle())
+  content = if (value == 0) aux else aux ++ Seq(createLabel())
 
   def createRectangle() = {
     if (self.value != 0) new Rectangle {
