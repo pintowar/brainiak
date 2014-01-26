@@ -28,9 +28,12 @@ class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state:
   val rowSize: Int = Math.sqrt(state.size).toInt
   assert(rowSize == Math.sqrt(state.size))
 
+
   def move(direction: Int): List[Int] = {
     state.updated(zeroIdx, state(zeroIdx + direction)).updated(zeroIdx + direction, 0)
   }
+
+  def canMove(direction: Int): Boolean = nextIdx.contains(direction)
 
   def trackParent: Node = parent
 
