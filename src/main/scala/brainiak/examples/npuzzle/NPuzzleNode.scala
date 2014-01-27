@@ -29,7 +29,7 @@ class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state:
   assert(rowSize == Math.sqrt(state.size))
 
 
-  def move(direction: Int): List[Int] = {
+  def move(direction: Int): List[Int] = state.synchronized {
     state.updated(zeroIdx, state(zeroIdx + direction)).updated(zeroIdx + direction, 0)
   }
 
@@ -69,4 +69,7 @@ class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state:
   }
 
   override def hashCode = state.size * (rowSize + state.hashCode())
+
+  override def clone: NPuzzleNode = new NPuzzleNode(parent, depth, cost, state)
+
 }

@@ -14,19 +14,18 @@ import scalafx.scene.layout.VBox
 
 object MainUI extends JFXApp {
   stage = new PrimaryStage {
-    val board = Board()
     val status = StatusBar()
-    val controls = Controls(status, board)
+    val controls = Controls(status)
+    val board = Board(controls)
     title = "8 Puzzle"
     resizable = false
     scene = new Scene {
       root = new VBox {
         content = Seq(controls, board, status)
-        onKeyPressed = new EventHandler[KeyEvent] {
-          def handle(evt: KeyEvent): Unit = board.handleCommand(evt)
-        }
       }
-
+      onKeyPressed = new EventHandler[KeyEvent] {
+        def handle(evt: KeyEvent): Unit = board.handleCommand(evt)
+      }
     }
 
   }

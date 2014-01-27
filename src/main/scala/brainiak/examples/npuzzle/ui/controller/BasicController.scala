@@ -11,18 +11,24 @@ import java.util.concurrent.LinkedBlockingQueue
  */
 abstract class BasicController {
   var queue = new LinkedBlockingQueue[Int]()
+
+  def addToQueue(move: Int) = queue.offer(move)
+
   val refreshTask = new Task[Unit]() {
     override def call(): Unit = {
       while (!board.isDisabled) {
-        if (!board.movingAnimation && !queue.isEmpty) {
-          board.moveAnimation(queue.poll())
+        queue.synchronized {
+          board.controls.setBufferSize(queue.size())
+          if (!queue.isEmpty && !board.movingAnimation) {
+            board.moveAnimation(queue.poll())
+          } else if (queue.isEmpty) board.controls.stoppedStatus()
         }
         Thread.sleep(100)
       }
     }
   }
   val background = new Thread(refreshTask)
-  //background.setDaemon(true)
+  background.setDaemon(true)
   background.start()
 
   def board: Board

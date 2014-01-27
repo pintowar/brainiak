@@ -2,6 +2,7 @@ package brainiak.examples.npuzzle.ui
 
 import scalafx.scene.control.Label
 import scalafx.scene.layout.BorderPane
+import javafx.application.Platform
 
 
 /**
@@ -17,7 +18,11 @@ class StatusBar extends BorderPane {
   this.delegate.setLeft(status)
   this.delegate.setRight(commandBuffer)
 
-  def setBufferSize(size: Int): Unit = commandBuffer.setText(s"Command buffer: ${size}")
+  def setBufferSize(size: Int): Unit = {
+    Platform.runLater(new Runnable {
+      def run(): Unit = commandBuffer.setText(s"Command buffer: $size")
+    })
+  }
 
   def setStatus(status: String): Unit = this.status.setText(status)
 }
