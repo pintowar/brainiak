@@ -8,7 +8,7 @@ import scala.util.Random
  */
 object NPuzzleNode {
   def apply(parent: Node, depth: Int, cost: Double, state: List[Int]): NPuzzleNode =
-    new NPuzzleNode(parent, depth, cost, state)
+    new NPuzzleNode(parent, depth, cost, state, 0)
 
   def apply(state: List[Int]): NPuzzleNode = new NPuzzleNode(state)
 
@@ -17,10 +17,10 @@ object NPuzzleNode {
   def apply(): NPuzzleNode = new NPuzzleNode()
 }
 
-class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state: List[Int]) extends Node {
-  def this(state: List[Int]) = this(null, 0, 0, state)
+class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state: List[Int], val movement: Int) extends Node {
+  def this(state: List[Int]) = this(null, 0, 0, state, 0)
 
-  def this(n: Int) = this(null, 0, 0, Random.shuffle((0 until n).toList))
+  def this(n: Int) = this(null, 0, 0, Random.shuffle((0 until n).toList), 0)
 
   def this() = this(9)
 
@@ -57,7 +57,7 @@ class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state:
   }
 
   def successors(except: Set[Node]): Set[Node] =
-    nextIdx.map(it => new NPuzzleNode(this, depth + 1, cost + 1, move(it)))
+    nextIdx.map(it => new NPuzzleNode(this, depth + 1, cost + 1, move(it), it))
       .toSet -- except
 
   override def toString: String =
@@ -70,6 +70,6 @@ class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state:
 
   override def hashCode = state.size * (rowSize + state.hashCode())
 
-  override def clone: NPuzzleNode = new NPuzzleNode(parent, depth, cost, state)
+  override def clone: NPuzzleNode = new NPuzzleNode(parent, depth, cost, state, movement)
 
 }

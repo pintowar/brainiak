@@ -17,4 +17,9 @@ class HumanController(val b: Board) extends BasicController {
       addToQueue(target)
     }
   }
+
+  override def startAction() = {
+    board.controls.stoppedStatus()
+    board.setFocusTraversable(true)
+  }
 }

@@ -7,23 +7,27 @@ import javafx.animation.TranslateTransitionBuilder
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.Node
-import brainiak.examples.npuzzle.ui.controller.{HumanController, BasicController}
-import scala.util.Random
+import brainiak.examples.npuzzle.ui.controller.{ControllerFactory, HumanController, BasicController}
 
 /**
  * Created by thiago on 1/24/14.
  */
 object Board {
-  def apply(controls: Controls): Board = new Board(controls)
+  def apply(controls: Controls): Board = {
+    val board = new Board(controls)
+    board.setFocusTraversable(true)
+    board
+  }
 }
 
 class Board(val controls: Controls) extends StackPane {
 
-  val controller: BasicController = new HumanController(this)
+  var controller: BasicController = new HumanController(this)
   var puzzleState: NPuzzleNode = null
   var blankIndex: Int = -1
+  @volatile var solving: Boolean = false
   @volatile var movingAnimation: Boolean = false
-  paint(NPuzzleNode())
+  paint(NPuzzleNode(List(6, 0, 2, 1, 4, 8, 7, 3, 5)))
 
   def moveAnimation(target: Int) = {
     if (!movingAnimation && puzzleState.canMove(target)) {
@@ -63,15 +67,16 @@ class Board(val controls: Controls) extends StackPane {
   controls.setRandomizeAction(new EventHandler[ActionEvent] {
 
     def handle(p1: ActionEvent): Unit = {
-      controls.movingStatus()
-      var clone = puzzleState.clone
-      var lastMove = 0
-      (0 to 20).foreach {
-        i => val aux = Random.shuffle(clone.nextIdx filterNot (List(-lastMove) contains)).head
-          controller.addToQueue(aux)
-          clone = NPuzzleNode(clone.move(aux))
-          lastMove = aux
-      }
+      controller.randomize
+    }
+
+  })
+
+  controls.setStartAction(new EventHandler[ActionEvent] {
+
+    def handle(p1: ActionEvent): Unit = {
+      controller = ControllerFactory(controls.combobox.getValue, Board.this)
+      controller.startAction()
     }
 
   })
