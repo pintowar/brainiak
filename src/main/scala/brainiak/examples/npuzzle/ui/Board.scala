@@ -1,5 +1,7 @@
 package brainiak.examples.npuzzle.ui
 
+import javafx.application.Platform
+
 import scalafx.scene.layout.StackPane
 import javafx.scene.input.KeyEvent
 import brainiak.examples.npuzzle.NPuzzleNode
@@ -59,8 +61,12 @@ class Board(val controls: Controls) extends StackPane {
     puzzleState = newState
     blankIndex = puzzleState.state.indexOf(0)
     children.synchronized {
-      children.clear()
-      puzzleState.state.indices.foreach(idx => children.add(createLayer(puzzleState.state(idx), idx)))
+      Platform.runLater(new Runnable {
+        def run(): Unit = {
+          children.clear()
+          puzzleState.state.indices.foreach(idx => children.add(createLayer(puzzleState.state(idx), idx)))
+        }
+      })
     }
   }
 

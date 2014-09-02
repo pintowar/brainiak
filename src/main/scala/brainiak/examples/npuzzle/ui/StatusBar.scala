@@ -24,5 +24,8 @@ class StatusBar extends BorderPane {
     })
   }
 
-  def setStatus(status: String): Unit = this.status.setText(status)
+  def setStatus(stat: String): Unit =
+    Platform.runLater(new Runnable {
+      def run(): Unit = status.setText(stat)
+    })
 }

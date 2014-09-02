@@ -36,9 +36,9 @@ abstract class BasicController {
     override def call(): Unit = {
       while (!board.isDisabled) {
         queue.synchronized {
-          board.controls.setBufferSize(queue.size())
           if (!queue.isEmpty && !board.movingAnimation) {
             board.moveAnimation(queue.poll())
+            board.controls.setBufferSize(queue.size())
           } else if (queue.isEmpty && !board.solving) board.controls.stoppedStatus()
         }
         Thread.sleep(100)
