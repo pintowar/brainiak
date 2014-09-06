@@ -16,11 +16,14 @@ object MainUI extends JFXApp {
   stage = new PrimaryStage {
     val status = StatusBar()
     val controls = Controls(status)
-    val board = Board(controls)
+    val board = Board(controls, 8)
+
     title = "8 Puzzle"
     resizable = false
     scene = new Scene {
       root = new VBox {
+        prefHeight = 150*3 + 40
+        prefWidth = 150*3
         content = Seq(controls, board, status)
       }
       onKeyPressed = new EventHandler[KeyEvent] {

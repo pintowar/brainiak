@@ -13,6 +13,7 @@ object BoardLayer {
 }
 
 class BoardLayer(val value: Int, val pos: Int, val nPieces: Int, val pieceSize: Int) extends GridPane {
+  def this(value: Int, pos: Int, nPieces: Int) = this(value, pos, nPieces, 150)
   def this(value: Int, pos: Int) = this(value, pos, 8, 150)
 
   assert(pos <= nPieces)

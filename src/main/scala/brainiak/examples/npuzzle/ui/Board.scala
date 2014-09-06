@@ -15,14 +15,14 @@ import brainiak.examples.npuzzle.ui.controller.{ControllerFactory, HumanControll
  * Created by thiago on 1/24/14.
  */
 object Board {
-  def apply(controls: Controls): Board = {
-    val board = new Board(controls)
+  def apply(controls: Controls, numHoax: Int): Board = {
+    val board = new Board(controls, numHoax)
     board.setFocusTraversable(true)
     board
   }
 }
 
-class Board(val controls: Controls) extends StackPane {
+class Board(val controls: Controls, numHoax: Int) extends StackPane {
 
   var controller: BasicController = new HumanController(this)
   var puzzleState: NPuzzleNode = null
@@ -87,7 +87,7 @@ class Board(val controls: Controls) extends StackPane {
 
   })
 
-  def createLayer(value: Int, pos: Int) = new BoardLayer(value, pos)
+  def createLayer(value: Int, pos: Int) = new BoardLayer(value, pos, numHoax)
 
   def handleCommand(evt: KeyEvent) = controller.handleCommand(evt)
 }
