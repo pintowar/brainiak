@@ -1,20 +1,30 @@
 package brainiak.examples.npuzzle.ui.controller
 
-import brainiak.examples.npuzzle.ui.Board
+import javafx.concurrent.Task
 import javafx.scene.input.KeyEvent
 
-import javafx.concurrent.Task
-import java.util.concurrent.LinkedBlockingQueue
-import scala.util.Random
 import brainiak.examples.npuzzle.NPuzzleNode
+import brainiak.examples.npuzzle.ui.Board
+import rx.lang.scala.Observable
+import rx.lang.scala.subjects.PublishSubject
+
+import scala.concurrent.duration.DurationInt
+import scala.language.postfixOps
+import scala.util.Random
 
 /**
  * Created by thiago on 1/25/14.
  */
 abstract class BasicController {
-  var queue = new LinkedBlockingQueue[Int]()
+  val channel = PublishSubject[Int]()
+  @volatile var numMoves = 0
+  //var queue = new LinkedBlockingQueue[Int]()
 
-  def addToQueue(move: Int) = queue.offer(move)
+
+  def move(move: Int) = {
+    channel.onNext(move)
+    numMoves += 1
+  }
 
   def randomize = {
     new Thread(new Task[Unit]() {
@@ -24,7 +34,7 @@ abstract class BasicController {
         var lastMove = 0
         (0 to 20).foreach {
           i => val aux = Random.shuffle(clone.nextIdx filterNot (List(-lastMove) contains)).head
-            addToQueue(aux)
+            move(aux)
             clone = NPuzzleNode(clone.move(aux))
             lastMove = aux
         }
@@ -32,22 +42,14 @@ abstract class BasicController {
     }).start()
   }
 
-  val refreshTask = new Task[Unit]() {
-    override def call(): Unit = {
-      while (!board.isDisabled) {
-        queue.synchronized {
-          if (!queue.isEmpty && !board.movingAnimation) {
-            board.moveAnimation(queue.poll())
-            board.controls.setBufferSize(queue.size())
-          } else if (queue.isEmpty && !board.solving) board.controls.stoppedStatus()
-        }
-        Thread.sleep(100)
-      }
-    }
+  val obs = channel.map(x => Observable.interval(450 millisecond).map(y => x).take(1)).concat
+
+  obs.subscribe { x =>
+    board.moveAnimation(x)
+    numMoves -= 1
+    board.controls.setBufferSize(numMoves)
   }
-  val background = new Thread(refreshTask)
-  background.setDaemon(true)
-  background.start()
+  obs.longCount.subscribe(x => println(x))
 
   def board: Board
 

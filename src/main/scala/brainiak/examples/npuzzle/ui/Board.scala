@@ -1,15 +1,15 @@
 package brainiak.examples.npuzzle.ui
 
+import javafx.animation.TranslateTransitionBuilder
 import javafx.application.Platform
+import javafx.event.{ActionEvent, EventHandler}
+import javafx.scene.Node
+import javafx.scene.input.KeyEvent
+
+import brainiak.examples.npuzzle.NPuzzleNode
+import brainiak.examples.npuzzle.ui.controller.{BasicController, ControllerFactory, HumanController}
 
 import scalafx.scene.layout.StackPane
-import javafx.scene.input.KeyEvent
-import brainiak.examples.npuzzle.NPuzzleNode
-import javafx.animation.TranslateTransitionBuilder
-import javafx.event.ActionEvent
-import javafx.event.EventHandler
-import javafx.scene.Node
-import brainiak.examples.npuzzle.ui.controller.{ControllerFactory, HumanController, BasicController}
 
 /**
  * Created by thiago on 1/24/14.
@@ -27,25 +27,21 @@ class Board(val controls: Controls, numHoax: Int) extends StackPane {
   var controller: BasicController = new HumanController(this)
   var puzzleState: NPuzzleNode = null
   var blankIndex: Int = -1
-  @volatile var solving: Boolean = false
-  @volatile var movingAnimation: Boolean = false
+
   paint(NPuzzleNode(List(6, 0, 2, 1, 4, 8, 7, 3, 5)))
 
   def moveAnimation(target: Int) = {
-    if (!movingAnimation && puzzleState.canMove(target)) {
-      movingAnimation = true
-      this.synchronized {
+    if (puzzleState.canMove(target)) {
         val next = NPuzzleNode(puzzleState.move(target))
         val movingHoax = children.get(blankIndex + target)
         val transition = createTransition(movingHoax, target)
         transition.setOnFinished(new EventHandler[ActionEvent] {
           override def handle(event: ActionEvent): Unit = {
             paint(next)
-            movingAnimation = false
+            if (controller.numMoves == 0) controls.stoppedStatus()
           }
         })
         transition.play()
-      }
     }
   }
 
@@ -60,14 +56,12 @@ class Board(val controls: Controls, numHoax: Int) extends StackPane {
   def paint(newState: NPuzzleNode) = {
     puzzleState = newState
     blankIndex = puzzleState.state.indexOf(0)
-    children.synchronized {
       Platform.runLater(new Runnable {
         def run(): Unit = {
           children.clear()
           puzzleState.state.indices.foreach(idx => children.add(createLayer(puzzleState.state(idx), idx)))
         }
       })
-    }
   }
 
   controls.setRandomizeAction(new EventHandler[ActionEvent] {
