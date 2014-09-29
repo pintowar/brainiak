@@ -1,15 +1,21 @@
 apply plugin: 'scala'
 apply plugin: 'idea'
-//apply plugin: 'application'
 apply from: 'http://dl.bintray.com/content/shemnon/javafx-gradle/0.4.0/javafx.plugin'
-
-//mainClassName = "brainiak.MainUI"
 
 javafx {
     appID '8-puzzle Brainiak'
     appName '8-puzzle Brainiak'
     mainClass = "brainiak.MainUI"
     systemProperties = [ 'prism.disableRegionCaching':'true' ]
+
+    debugKey {
+        alias = 'debugKey'
+        //keyPass = 'password' // provide via command line
+        keyStore = file('~/.keys/debug.jks')
+        //storePass = 'password'  // provide via command line
+    }
+
+    signingMode 'debug'
 }
 
 repositories{
@@ -22,5 +28,10 @@ dependencies{
     compile "org.scalafx:scalafx_2.10:1.0.0-M7"
     compile "com.netflix.rxjava:rxjava-scala:0.20.4"
     testCompile "junit:junit:4.11"
-    testCompile "org.scalatest:scalatest:1.9.1"
+    testCompile "org.scalatest:scalatest_2.11:2.2.3-SNAP1"
 }
+
+scalaConsole.dependsOn(build)
+scalaConsole.dependsOn(test)
+scalaConsole.classpath += sourceSets.main.output
+scalaTestConsole.classpath += sourceSets.test.output
