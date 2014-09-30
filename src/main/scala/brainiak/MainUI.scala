@@ -4,9 +4,6 @@ package brainiak
  * Created by thiago on 1/23/14.
  */
 
-import javafx.event.EventHandler
-import javafx.scene.input.KeyEvent
-
 import brainiak.examples.npuzzle.ui.{Board, Controls, StatusBar}
 
 import scalafx.application.JFXApp
@@ -28,10 +25,6 @@ object MainUI extends JFXApp {
         prefWidth = 150 * 3
         content = Seq(controls, board, status)
       }
-      onKeyPressed = new EventHandler[KeyEvent] {
-        def handle(evt: KeyEvent): Unit = board.handleCommand(evt)
-      }
     }
-
   }
 }

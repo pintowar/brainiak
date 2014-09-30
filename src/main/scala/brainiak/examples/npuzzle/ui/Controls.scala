@@ -14,8 +14,11 @@ object Controls {
 
 class Controls(val status: StatusBar) extends FlowPane {
   val combobox = new ComboBox[String]()
+  combobox.setFocusTraversable(false)
   val randomize = new Button("Randomize")
+  randomize.setFocusTraversable(false)
   val start = new Button("Start")
+  start.setFocusTraversable(false)
 
   combobox.getItems.addAll("Human", "A*")
   combobox.setValue("Human")

@@ -1,6 +1,13 @@
 apply plugin: 'scala'
 apply plugin: 'idea'
-apply from: 'http://dl.bintray.com/content/shemnon/javafx-gradle/0.4.0/javafx.plugin'
+//apply plugin: 'application'
+apply from: 'http://dl.bintray.com/content/shemnon/javafx-gradle/8.1.1/javafx.plugin'
+
+group = "com.github.pintowar"
+version = 0.1
+
+//mainClassName = "brainiak.MainUI"
+
 
 javafx {
     appID '8-puzzle Brainiak'
@@ -25,7 +32,7 @@ repositories{
 
 dependencies{
     compile "org.scala-lang:scala-library:2.11.2"
-    compile "org.scalafx:scalafx_2.10:1.0.0-M7"
+    compile "org.scalafx:scalafx_2.11:8.0.20-R6"
     compile "com.netflix.rxjava:rxjava-scala:0.20.4"
     testCompile "junit:junit:4.11"
     testCompile "org.scalatest:scalatest_2.11:2.2.3-SNAP1"

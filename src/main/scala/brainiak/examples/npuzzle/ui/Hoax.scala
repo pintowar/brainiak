@@ -28,18 +28,18 @@ class Hoax(val value: Int, val wid: Double, val hei: Double) extends StackPane {
       arcWidth = 20.0
       height = self.hei
       width = self.wid
-      stroke = WHITE
+      stroke = White
       strokeLineCap = StrokeLineCap.ROUND
-      strokeType = StrokeType.INSIDE
+      strokeType = StrokeType.Inside
       fill = createGradient()
     } else new Rectangle {
-      fill = WHITE
+      fill = White
     }
   }
 
   def createGradient(): LinearGradient = {
-    new LinearGradient(0, 0, 1, 1, true, CycleMethod.REFLECT,
-      Seq(Stop(0, BLACK), Stop(1, GREEN))
+    new LinearGradient(0, 0, 1, 1, true, CycleMethod.Reflect,
+      Seq(Stop(0, Black), Stop(1, Green))
     )
   }
 
@@ -47,10 +47,10 @@ class Hoax(val value: Int, val wid: Double, val hei: Double) extends StackPane {
     val label = new Label(
       text = self.value.toString
     )
-    label.textFill = WHITE
-    label.alignment = Pos.CENTER
-    label.contentDisplay = ContentDisplay.CENTER
-    label.textAlignment = TextAlignment.CENTER
+    label.textFill = White
+    label.alignment = Pos.Center
+    label.contentDisplay = ContentDisplay.Center
+    label.textAlignment = TextAlignment.Center
     label.font = new Font("Arial", self.hei / 3)
     label
   }

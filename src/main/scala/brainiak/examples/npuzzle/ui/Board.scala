@@ -16,9 +16,7 @@ import scalafx.scene.layout.StackPane
  */
 object Board {
   def apply(controls: Controls, numHoax: Int): Board = {
-    val board = new Board(controls, numHoax)
-    board.setFocusTraversable(true)
-    board
+    new Board(controls, numHoax)
   }
 }
 
@@ -80,6 +78,10 @@ class Board(val controls: Controls, numHoax: Int) extends StackPane {
     }
 
   })
+
+  onKeyPressed = new EventHandler[KeyEvent] {
+    def handle(evt: KeyEvent): Unit = handleCommand(evt)
+  }
 
   def createLayer(value: Int, pos: Int) = new BoardLayer(value, pos, numHoax)
 
