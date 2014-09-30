@@ -1,8 +1,8 @@
-package brainiak.examples.npuzzle.ui.controller
+package brainiak.samples.npuzzle.ui.controller
 
 import javafx.scene.input.KeyEvent
 
-import brainiak.examples.npuzzle.ui.Board
+import brainiak.samples.npuzzle.ui.Board
 
 /**
  * Created by thiago on 1/25/14.

@@ -1,4 +1,4 @@
-package brainiak.examples.npuzzle.ui
+package brainiak.samples.npuzzle.ui
 
 import scalafx.scene.control.Label
 import scalafx.scene.layout.BorderPane

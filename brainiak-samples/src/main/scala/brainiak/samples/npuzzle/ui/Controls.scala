@@ -1,4 +1,4 @@
-package brainiak.examples.npuzzle.ui
+package brainiak.samples.npuzzle.ui
 
 import scalafx.scene.layout.FlowPane
 import scalafx.scene.control.{Separator, Button, ComboBox, Label}

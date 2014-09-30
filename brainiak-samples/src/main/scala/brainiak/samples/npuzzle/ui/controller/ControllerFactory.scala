@@ -1,6 +1,6 @@
-package brainiak.examples.npuzzle.ui.controller
+package brainiak.samples.npuzzle.ui.controller
 
-import brainiak.examples.npuzzle.ui.Board
+import brainiak.samples.npuzzle.ui.Board
 
 /**
  * Created by thiago on 1/29/14.

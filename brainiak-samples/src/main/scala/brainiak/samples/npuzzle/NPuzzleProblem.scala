@@ -1,4 +1,4 @@
-package brainiak.examples.npuzzle
+package brainiak.samples.npuzzle
 
 import brainiak.search.{Node, Problem}
 

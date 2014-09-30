@@ -1,10 +1,10 @@
-package brainiak.examples.npuzzle
+package brainiak.samples.npuzzle
 
 /**
  * Created by thiago on 1/23/14.
  */
 
-import brainiak.examples.npuzzle.ui.{Board, Controls, StatusBar}
+import brainiak.samples.npuzzle.ui.{Board, Controls, StatusBar}
 
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage

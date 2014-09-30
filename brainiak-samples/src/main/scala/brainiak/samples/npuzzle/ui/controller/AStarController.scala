@@ -1,10 +1,10 @@
-package brainiak.examples.npuzzle.ui.controller
+package brainiak.samples.npuzzle.ui.controller
 
 import javafx.concurrent.Task
 import javafx.scene.input.KeyEvent
 
-import brainiak.examples.npuzzle.ui.Board
-import brainiak.examples.npuzzle.{NPuzzleNode, NPuzzleProblem}
+import brainiak.samples.npuzzle.ui.Board
+import brainiak.samples.npuzzle.{NPuzzleNode, NPuzzleProblem}
 import brainiak.search.strategies.BestFirst
 import brainiak.search.types.GraphSearch
 

@@ -1,10 +1,10 @@
-package brainiak.examples.npuzzle.ui.controller
+package brainiak.samples.npuzzle.ui.controller
 
 import javafx.concurrent.Task
 import javafx.scene.input.KeyEvent
 
-import brainiak.examples.npuzzle.NPuzzleNode
-import brainiak.examples.npuzzle.ui.Board
+import brainiak.samples.npuzzle.NPuzzleNode
+import brainiak.samples.npuzzle.ui.Board
 import rx.lang.scala.Observable
 import rx.lang.scala.subjects.PublishSubject
 

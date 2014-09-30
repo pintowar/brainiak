@@ -1,4 +1,4 @@
-package brainiak.examples.npuzzle.ui
+package brainiak.samples.npuzzle.ui
 
 import scalafx.scene.layout.StackPane
 import scalafx.scene.shape.{StrokeType, StrokeLineCap, Rectangle}

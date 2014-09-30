@@ -1,4 +1,4 @@
-package brainiak.examples.npuzzle.ui
+package brainiak.samples.npuzzle.ui
 
 import javafx.animation.TranslateTransitionBuilder
 import javafx.application.Platform
@@ -6,8 +6,8 @@ import javafx.event.{ActionEvent, EventHandler}
 import javafx.scene.Node
 import javafx.scene.input.KeyEvent
 
-import brainiak.examples.npuzzle.NPuzzleNode
-import brainiak.examples.npuzzle.ui.controller.{BasicController, ControllerFactory, HumanController}
+import brainiak.samples.npuzzle.NPuzzleNode
+import brainiak.samples.npuzzle.ui.controller.{BasicController, ControllerFactory, HumanController}
 
 import scalafx.scene.layout.StackPane
 
