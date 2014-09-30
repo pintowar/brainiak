@@ -1,4 +1,4 @@
-package brainiak
+package brainiak.examples.npuzzle
 
 /**
  * Created by thiago on 1/23/14.
