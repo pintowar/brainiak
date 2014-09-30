@@ -13,13 +13,17 @@ javafx {
     appID '8-puzzle Brainiak'
     appName '8-puzzle Brainiak'
     mainClass = "brainiak.MainUI"
-    systemProperties = [ 'prism.disableRegionCaching':'true' ]
+
+    // JVM arguments, system properties, application command line arguments
+    jvmArgs = ['-XX:+AggressiveOpts', '-XX:CompileThreshold=1']
+    systemProperties = ['prism.disableRegionCaching':'true']
+    arguments = ['-l', '--fast']
 
     debugKey {
         alias = 'debugKey'
-        //keyPass = 'password' // provide via command line
-        keyStore = file('~/.keys/debug.jks')
-        //storePass = 'password'  // provide via command line
+        keyPass = project.keyStorePassword
+        keyStore = file("${System.properties['user.home']}/.keys/debug.jks")
+        storePass = project.storePassword
     }
 
     signingMode 'debug'
