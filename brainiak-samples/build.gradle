@@ -1,10 +1,21 @@
-apply from: 'http://dl.bintray.com/content/shemnon/javafx-gradle/8.1.1/javafx.plugin'
-apply plugin: 'scala'
+buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.1.1'
+    }
+}
 
-javafx {
+//apply from: 'http://dl.bintray.com/content/shemnon/javafx-gradle/8.1.1/javafx.plugin'
+apply plugin: 'scala'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+mainClassName = "brainiak.samples.npuzzle.MainUI"
+
+/*javafx {
     appID 'Brainiak Sample'
     appName 'Brainiak Sample'
-    mainClass = "brainiak.examples.npuzzle.MainUI"
+    mainClass = "brainiak.samples.npuzzle.MainUI"
 
     // JVM arguments, system properties, application command line arguments
     jvmArgs = ['-XX:+AggressiveOpts', '-XX:CompileThreshold=1']
@@ -19,7 +30,7 @@ javafx {
     }
 
     signingMode 'debug'
-}
+}*/
 
 dependencies{
     compile project(':brainiak-core')
