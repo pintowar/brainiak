@@ -20,4 +20,3 @@ project/
 .gradle/
 .gradletasknamecache
 build/
-gradle.properties
