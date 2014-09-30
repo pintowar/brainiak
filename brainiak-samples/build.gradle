@@ -1,12 +1,10 @@
-//apply from: 'http://dl.bintray.com/content/shemnon/javafx-gradle/8.1.1/javafx.plugin'
-apply plugin: 'application'
+apply from: 'http://dl.bintray.com/content/shemnon/javafx-gradle/8.1.1/javafx.plugin'
+apply plugin: 'scala'
 
-mainClassName = "brainiak.examples.npuzzle.MainUI"
-
-/*javafx {
-    appID '8-puzzle Brainiak'
-    appName '8-puzzle Brainiak'
-    mainClass = "brainiak.MainUI"
+javafx {
+    appID 'Brainiak Sample'
+    appName 'Brainiak Sample'
+    mainClass = "brainiak.examples.npuzzle.MainUI"
 
     // JVM arguments, system properties, application command line arguments
     jvmArgs = ['-XX:+AggressiveOpts', '-XX:CompileThreshold=1']
@@ -15,13 +13,13 @@ mainClassName = "brainiak.examples.npuzzle.MainUI"
 
     debugKey {
         alias = 'debugKey'
-        keyPass = project.keyStorePassword
+        keyPass = keyPass
         keyStore = file("${System.properties['user.home']}/.keys/debug.jks")
-        storePass = project.storePassword
+        storePass = storePass
     }
 
     signingMode 'debug'
-}*/
+}
 
 dependencies{
     compile project(':brainiak-core')

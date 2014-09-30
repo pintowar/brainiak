@@ -1,0 +1,7 @@
+apply plugin: 'scala'
+
+dependencies {
+    compile "org.scala-lang:scala-library:2.11.2"
+    testCompile "junit:junit:4.11"
+    testCompile "org.scalatest:scalatest_2.11:2.2.3-SNAP1"
+}

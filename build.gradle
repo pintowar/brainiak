@@ -1,24 +1,12 @@
 allprojects {
-apply plugin: 'scala'
-apply plugin: 'idea'
+    apply plugin: 'idea'
 
-group = "com.github.pintowar"
-version = 0.1
+    group = "com.github.pintowar"
+    version = 0.1
 
-repositories{
-    mavenCentral()
-    jcenter()
-}
-
-dependencies{
-    compile "org.scala-lang:scala-library:2.11.2"
-    testCompile "junit:junit:4.11"
-    testCompile "org.scalatest:scalatest_2.11:2.2.3-SNAP1"
-}
-
-scalaConsole.dependsOn(build)
-scalaConsole.dependsOn(test)
-scalaConsole.classpath += sourceSets.main.output
-scalaTestConsole.classpath += sourceSets.test.output
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
 
 }
