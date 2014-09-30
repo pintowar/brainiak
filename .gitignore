@@ -4,6 +4,8 @@
 #IDEA meta data
 brainiak.iml
 .idea/
+brainiak.ipr
+brainiak.iws
 # sbt specific
 dist/*
 target/
