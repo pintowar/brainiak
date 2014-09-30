@@ -1,0 +1,32 @@
+//apply from: 'http://dl.bintray.com/content/shemnon/javafx-gradle/8.1.1/javafx.plugin'
+apply plugin: 'application'
+
+mainClassName = "brainiak.examples.npuzzle.MainUI"
+
+/*javafx {
+    appID '8-puzzle Brainiak'
+    appName '8-puzzle Brainiak'
+    mainClass = "brainiak.MainUI"
+
+    // JVM arguments, system properties, application command line arguments
+    jvmArgs = ['-XX:+AggressiveOpts', '-XX:CompileThreshold=1']
+    systemProperties = ['prism.disableRegionCaching':'true']
+    arguments = ['-l', '--fast']
+
+    debugKey {
+        alias = 'debugKey'
+        keyPass = project.keyStorePassword
+        keyStore = file("${System.properties['user.home']}/.keys/debug.jks")
+        storePass = project.storePassword
+    }
+
+    signingMode 'debug'
+}*/
+
+dependencies{
+    compile project(':brainiak-core')
+    compile "org.scalafx:scalafx_2.11:8.0.20-R6"
+    compile "com.netflix.rxjava:rxjava-scala:0.20.4"
+    testCompile "org.scalatest:scalatest_2.11:2.2.3-SNAP1"
+}
+

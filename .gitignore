@@ -6,6 +6,9 @@ brainiak.iml
 .idea/
 brainiak.ipr
 brainiak.iws
+brainiak-core/brainiak-core.iml
+brainiak-samples/brainiak-samples.iml
+
 # sbt specific
 dist/*
 target/
