@@ -11,3 +11,6 @@ allprojects {
 
 }
 
+subprojects {
+    apply plugin: 'scala'
+}
