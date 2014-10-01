@@ -21,7 +21,7 @@ def jxf7path(){
 dependencies {
     compile project(':brainiak-core')
     compile "org.scalafx:scalafx_2.11:8.0.20-R6"
-    //if(version() < 1.8) compile files(jxf7path())
+    if(version() < 1.8) compile files(jxf7path())
     compile "com.netflix.rxjava:rxjava-scala:0.20.4"
     testCompile "org.scalatest:scalatest_2.11:2.2.3-SNAP1"
 }
