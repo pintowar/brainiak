@@ -11,11 +11,24 @@ apply plugin: 'com.github.johnrengelman.shadow'
 
 mainClassName = "brainiak.samples.npuzzle.MainUI"
 
+def version(){
+  System.getProperty('java.specification.version') as double
+}
+
+def jxf7path(){
+  "${System.getProperty('java.home')}/lib/jfxrt.jar"
+}
+
 dependencies {
     compile project(':brainiak-core')
     compile "org.scalafx:scalafx_2.11:8.0.20-R6"
+    if(version() < 1.8) compile files(jxf7path())
     compile "com.netflix.rxjava:rxjava-scala:0.20.4"
     testCompile "org.scalatest:scalatest_2.11:2.2.3-SNAP1"
+}
+
+task version {
+  println version()
 }
 
 /*task exec {
