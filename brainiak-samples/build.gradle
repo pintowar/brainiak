@@ -18,8 +18,8 @@ dependencies {
     testCompile "org.scalatest:scalatest_2.11:2.2.3-SNAP1"
 }
 
-task exec {
+/*task exec {
   mainClassName = "brainiak.samples.${sample}.MainUI"
   finalizedBy "run"
-}
+}*/
 
