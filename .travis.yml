@@ -1,2 +1,2 @@
 ---
-script: "gradlew -q check"
+script: "./gradlew -q check"
