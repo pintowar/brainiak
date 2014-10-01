@@ -1,4 +1,4 @@
 ---
 jdk:
   - oraclejdk8
-script: "./gradlew -q check"
+script: "./gradlew check"
