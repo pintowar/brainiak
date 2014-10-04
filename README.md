@@ -9,6 +9,21 @@ This project aims to implement a serie of basic AI algorithims.
 
 ## Usage
 
+## Implemented Algorithims
+
+- Depth-first Search
+- Breadth-first Search
+- A* Search
+
+## Planning Algorithims
+
+- Dynamic Programming
+- IDA* Search
+- Simulated Annealing
+- Tabu Search
+- Genetic Algorithms
+- Particle Swarm Optimization
+
 ## Running Sample
 
 To execute the 8-puzzle example clone the repo and just run:
