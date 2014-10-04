@@ -1,7 +1,7 @@
 package brainiak.search.strategies
 
 import brainiak.search.{Node, Strategy}
-import scala.collection.immutable.Stack
+import scala.collection.immutable.List
 
 /**
  * Created by thiago on 1/17/14.
@@ -11,10 +11,11 @@ object DepthFirst {
 }
 
 class DepthFirst extends Strategy {
-  var stack: Stack[Node] = Stack.empty[Node]
+  //var stack: Stack[Node] = Stack.empty[Node]
+  var stack: List[Node] = List.empty[Node]
 
   def <<(state: Node): Strategy = {
-    if (!stack.contains(state)) stack = stack push state
+    if (!stack.contains(state)) stack = state :: stack
     this
   }
 
@@ -23,8 +24,8 @@ class DepthFirst extends Strategy {
   def isEmpty: Boolean = stack.isEmpty
 
   def actual: Node = {
-    val aux = stack.pop2
-    stack = aux._2
-    aux._1
+    val aux = stack.head
+    stack = stack.tail
+    aux
   }
 }
