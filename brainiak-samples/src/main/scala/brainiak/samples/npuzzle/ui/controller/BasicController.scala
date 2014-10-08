@@ -18,8 +18,6 @@ import scala.util.Random
 abstract class BasicController {
   val channel = PublishSubject[Int]()
   @volatile var numMoves = 0
-  //var queue = new LinkedBlockingQueue[Int]()
-
 
   def move(move: Int) = {
     channel.onNext(move)
@@ -49,7 +47,6 @@ abstract class BasicController {
     numMoves -= 1
     board.controls.setBufferSize(numMoves)
   }
-  obs.longCount.subscribe(x => println(x))
 
   def board: Board
 
