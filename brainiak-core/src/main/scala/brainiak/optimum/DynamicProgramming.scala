@@ -5,9 +5,12 @@ import scala.collection.BitSet
 /**
  * Created by thiago on 08/10/14.
  */
-class DynamicProgramming {
+class DynamicProgramming(val values: List[Int], val weights: List[Int], val items: Int, val capacity: Int) {
 
-  def mountTable(values: List[Int], weights: List[Int], items: Int, capacity: Int): List[BitSet] = {
+  def mountTable: List[BitSet] = {
+    val vals = 0 :: values
+    val weis = 0 :: weights
+    
     var sol = List.empty[BitSet]
     var pre = (0 to capacity).map(it => 0)
     var aux = (0 to capacity).map(it => 0)
@@ -16,7 +19,7 @@ class DynamicProgramming {
       var lineSet = BitSet()
       (1 to capacity).foreach { w =>
         val opt1 = pre(w)
-        val opt2 = if (weights(n) <= w) values(n) + pre(w-weights(n))
+        val opt2 = if (weis(n) <= w) vals(n) + pre(w-weis(n))
         else Int.MinValue
 
         aux = aux.updated(w, List(opt1, opt2).max)
@@ -25,17 +28,26 @@ class DynamicProgramming {
       pre = aux
       sol = lineSet :: sol
     }
-    sol
+    sol.reverse
   }
 
-  def backTracking(sol: List[BitSet], weights: List[Int], items: Int, capacity: Int): List[Int] = ???
-
-  def solve(values: List[Int], weights: List[Int], items: Int, capacity: Int): List[Int] = {
-    val vals = 0 :: values
+  def backTracking(sol: List[BitSet]): List[Int] = {
     val weis = 0 :: weights
+    
+    var w = capacity
+    val nsol = BitSet() :: sol
+    val taken = (1 to items).reverse.map{ it =>
+      if(nsol(it).contains(w)){
+        w = w - weis(it)
+        1
+      }else 0
+    }
+    taken.reverse.toList
+  }
 
-    val sol = mountTable(vals, weis, items, capacity)
-    backTracking(sol, weights, items, capacity)
+  def solve: List[Int] = {
+    val sol = mountTable
+    backTracking(sol)
   }
 
 }
