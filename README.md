@@ -15,7 +15,7 @@ This project aims to implement a serie of basic AI algorithims.
 - Breadth-first Search
 - A* Search
 
-## Planning Algorithims
+## Planned Algorithims
 
 - Dynamic Programming
 - IDA* Search
