@@ -16,8 +16,8 @@ import org.scalatest.junit.JUnitRunner
 class DynamicProgrammingTest extends FunSuite {
 
 
-  val dyn = new DynamicProgramming(List((8, 4), (10, 5), (15, 8), (4, 3)), 11)
-  val listBit = List(BitSet(4, 5, 6, 7, 8, 9, 10, 11), BitSet(5, 6, 7, 8, 9, 10, 11),
+  val dyn = new DynamicProgramming(Seq((8, 4), (10, 5), (15, 8), (4, 3)), 11)
+  val listBit = Seq(BitSet(4, 5, 6, 7, 8, 9, 10, 11), BitSet(5, 6, 7, 8, 9, 10, 11),
     BitSet(8), BitSet(3, 7, 11))
 
   test("test mountTable") {
