@@ -14,10 +14,10 @@ This project aims to implement a serie of basic AI algorithims.
 - Depth-first Search
 - Breadth-first Search
 - A* Search
+- Dynamic Programming
 
 ## Planning Algorithims
 
-- Dynamic Programming
 - IDA* Search
 - Simulated Annealing
 - Tabu Search
