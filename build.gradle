@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.6'
+    }
+}
+
 allprojects {
     apply plugin: 'idea'
 
@@ -11,6 +20,47 @@ allprojects {
 
 }
 
-subprojects {
-    apply plugin: 'scala'
+subprojects { Project subproject ->
+    subproject.apply plugin: 'com.jfrog.bintray'
+    subproject.apply plugin: 'scala'
+
+    subproject.configurations {
+        published
+    }
+
+    subproject.task('sourceJar', type: Jar) {
+        from sourceSets.main.allSource
+        classifier = 'sources'
+    }
+
+    subproject.task('javadocJar', type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    // Add the sourceJars to non-extractor modules
+    subproject.artifacts {
+        published sourceJar
+        published javadocJar
+    }
+
+    subproject.bintray {
+        user = ''
+        key = ''
+        configurations = ['published', 'archives'] //When uploading configuration files
+
+        dryRun = false //Whether to run this as dry-run, without deploying
+        publish = true //If version should be auto published after an upload
+        pkg {
+            repo = 'brainiak'
+            name = subproject.name
+            desc = 'A basic Artificial Intelligence library for Scala.'
+            websiteUrl = 'https://github.com/pintowar/brainiak'
+            issueTrackerUrl = 'https://github.com/pintowar/brainiak/issues'
+            vcsUrl = 'https://github.com/pintowar/brainiak.git'
+            licenses = ['Apache 2.0']
+            labels = ['java', 'scala', 'ai']
+            publicDownloadNumbers = true
+        }
+    }
 }

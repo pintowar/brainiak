@@ -16,7 +16,7 @@ This project aims to implement a serie of basic AI algorithims.
 - A* Search
 - Dynamic Programming
 
-## Planning Algorithims
+## Planned Algorithims
 
 - IDA* Search
 - Simulated Annealing
