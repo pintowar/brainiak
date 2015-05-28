@@ -10,7 +10,7 @@ trait Node {
 
   def successors(except: Set[Node]): Set[Node]
 
-  def successors = successors(Set.empty[Node])
+  def successors: Set[Node] = successors(Set.empty[Node])
 
   def myDepth: Int
 
