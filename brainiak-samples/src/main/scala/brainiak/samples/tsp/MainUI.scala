@@ -29,7 +29,8 @@ object MainUI extends JFXApp {
     val bxs = best.map(_._1)
     val bys = best.map(_._2)
 
-    val chart: Chart = new ChartBuilder().width(800).height(300).theme(ChartTheme.Matlab).title("Path").build()
+    val chart: Chart = new ChartBuilder().width(800).height(300).theme(ChartTheme.Matlab)
+      .title(s"${current.size} Points Path").build()
     chart.getStyleManager.setPlotGridLinesVisible(false)
 
     val cSeries = chart.addSeries("Current", (cxs :+ cxs.head).toArray, (cys :+ cys.head).toArray)
