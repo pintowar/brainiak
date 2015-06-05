@@ -7,8 +7,8 @@ import scala.util.Random
 /**
  * Created by thiago on 27/05/15.
  */
-class SimulatedAnnealing(val currentSol: Node, val initialTemp: Double, val coolingRate: Double) {
-  def this(currentSol: Node) = this(currentSol, 10000, 0.003)
+class SimulatedAnnealing(val currentSol: Node, val initialTemp: Double, val coolingRate: Double, val iterations: Int) {
+  def this(currentSol: Node) = this(currentSol, 20, 0.009, 5)
 
   def acceptanceProbability(energy: Double, newEnergy: Double, temperature: Double): Double = {
     // If the new solution is better, accept it
@@ -19,17 +19,20 @@ class SimulatedAnnealing(val currentSol: Node, val initialTemp: Double, val cool
 
   def coolingDown(start: Double, factor: Double): Stream[Double] = start #:: coolingDown(start * (1 - factor), factor)
 
-  def cooling(seed: Double): Node = {
+  def cooling(cback: (Node, Node, Double) => Unit): Node = {
     val main = Map('current -> currentSol, 'best -> currentSol)
-    coolingDown(initialTemp, coolingRate).takeWhile(_ >= 1).foldLeft(main) { (args, temp) =>
-      val current = args('current)
-      val next = Random.shuffle(current.successors).head
-      val prob = acceptanceProbability(current.myCost, next.myCost, temp)
+    coolingDown(initialTemp, coolingRate).takeWhile(_ >= 0).foldLeft(main) { (args, temp) =>
+      (1 to iterations).foldLeft(args) { (turn, it) =>
+        val current = turn('current)
+        val next = Random.shuffle(current.successors).head
+        val prob = acceptanceProbability(current.myCost, next.myCost, temp)
 
-      Map('current -> (if (prob > seed) next else current),
-        'best -> (if (current.myCost < args('best).myCost) current else args('best)))
+        val aux = Map('current -> (if (prob > Math.random()) next else current),
+          'best -> (if (current.myCost < turn('best).myCost) current else turn('best)))
+        cback(aux('current), aux('best), temp)
+        aux
+      }
     }('best)
   }
 
-  def cooling: Node = cooling(Math.random())
 }

@@ -23,6 +23,7 @@ dependencies {
     if(version() < 1.8) compile files(jxf7path())
     compile "org.scalafx:scalafx_2.11:2.2.67-R10"
     compile "com.netflix.rxjava:rxjava-scala:0.20.4"
+    compile "com.xeiam.xchart:xchart:2.3.2"
     testCompile "org.scalatest:scalatest_2.11:2.2.3-SNAP1"
 }
 
