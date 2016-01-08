@@ -12,13 +12,17 @@ object BreadthFirst {
 
 class BreadthFirst extends Strategy {
   var queue: Queue[Node] = Queue.empty[Node]
+  var visited: Set[Node] = Set.empty[Node]
 
   def <<(state: Node): Strategy = {
-    if (!queue.contains(state)) queue = queue.enqueue(state)
+    if (!contains(state)) {
+      visited = visited + state
+      queue = queue.enqueue(state)
+    }
     this
   }
 
-  def contains(state: Node) = queue.contains(state)
+  def contains(state: Node) = visited.contains(state)
 
   def isEmpty: Boolean = queue.isEmpty
 
