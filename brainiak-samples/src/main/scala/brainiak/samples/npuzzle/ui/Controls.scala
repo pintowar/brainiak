@@ -20,7 +20,7 @@ class Controls(val status: StatusBar) extends FlowPane {
   val start = new Button("Start")
   start.setFocusTraversable(false)
 
-  combobox.getItems.addAll("Human", "A*")
+  combobox.getItems.addAll("Human", "A*", "Breadth")
   combobox.setValue("Human")
   children.add(new Label(text = "Controller:"))
   children.add(new Separator())
