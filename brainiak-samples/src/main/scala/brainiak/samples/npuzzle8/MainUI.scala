@@ -1,4 +1,4 @@
-package brainiak.samples.npuzzle
+package brainiak.samples.npuzzle8
 
 /**
  * Created by thiago on 1/23/14.
