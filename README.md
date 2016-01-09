@@ -30,6 +30,6 @@ To execute the 8-puzzle example clone the repo and just run:
 
     git clone https://github.com/pintowar/brainiak.git
     cd brainiak
-    ./gradlew exec -Psample=npuzzle
+    ./gradlew exec -Psample=npuzzle15
 
 
