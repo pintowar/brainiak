@@ -13,8 +13,8 @@ import scala.language.postfixOps
 import scala.util.Random
 
 /**
- * Created by thiago on 1/25/14.
- */
+  * Created by thiago on 1/25/14.
+  */
 abstract class BasicController {
   val channel = PublishSubject[Int]()
   @volatile var numMoves = 0
@@ -30,11 +30,11 @@ abstract class BasicController {
         board.controls.movingStatus()
         var clone = board.puzzleState.clone
         var lastMove = 0
-        (0 to 20).foreach {
-          i => val aux = Random.shuffle(clone.nextIdx filterNot (List(-lastMove) contains)).head
-            move(aux)
-            clone = NPuzzleNode(clone.move(aux))
-            lastMove = aux
+        (0 to 20).foreach { i =>
+          val aux = Random.shuffle(clone.nextIdx filterNot (List(-lastMove) contains)).head
+          move(aux)
+          clone = NPuzzleNode(clone.move(aux))
+          lastMove = aux
         }
       }
     }).start()

@@ -4,8 +4,8 @@ import brainiak.search.Node
 import scala.util.Random
 
 /**
- * Created by thiago on 1/18/14.
- */
+  * Created by thiago on 1/18/14.
+  */
 object NPuzzleNode {
   def apply(parent: Node, depth: Int, cost: Double, state: List[Int]): NPuzzleNode =
     new NPuzzleNode(parent, depth, cost, state, 0)
@@ -37,13 +37,12 @@ class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state:
 
   def trackParent: Node = parent
 
-  def nextIdx: List[Int] = {
-    List(rowSize, 1, -rowSize, -1).filter {
-      p =>
-        val next = p + zeroIdx
-        (next >= 0 && next < state.size) &&
-          !(zeroIdx % rowSize == 0 && next % rowSize == 2) &&
-          !(zeroIdx % rowSize == 2 && next % rowSize == 0)
+  def nextIdx: Seq[Int] = {
+    Seq(rowSize, 1, -rowSize, -1).filter { p =>
+      val next = p + zeroIdx
+      (next >= 0 && next < state.size) &&
+        !(zeroIdx % rowSize == 0 && next % rowSize == rowSize - 1) &&
+        !(zeroIdx % rowSize == rowSize - 1 && next % rowSize == 0)
     }
   }
 

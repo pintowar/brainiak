@@ -20,14 +20,14 @@ object Board {
   }
 }
 
-class Board(val controls: Controls, numHoax: Int) extends StackPane {
+class Board(val controls: Controls, val numHoax: Int) extends StackPane {
 
   var controller: BasicController = new HumanController(this)
   var puzzleState: NPuzzleNode = null
   var blankIndex: Int = -1
 
   if(numHoax == 8) paint(NPuzzleNode(List(6, 0, 2, 1, 4, 8, 7, 3, 5)))
-  else paint(NPuzzleNode(List(3, 15, 8, 7, 1, 13, 14, 4, 6, 12, 10, 5, 11, 0, 2, 9)))
+  else paint(NPuzzleNode(List(3, 15, 8, 7, 1, 13, 14, 4, 6, 0, 10, 5, 11, 12, 2, 9)))
 
   def moveAnimation(target: Int) = {
     if (puzzleState.canMove(target)) {

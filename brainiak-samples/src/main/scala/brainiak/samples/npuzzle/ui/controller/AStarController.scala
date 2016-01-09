@@ -19,7 +19,7 @@ class AStarController(val b: Board) extends BasicController {
   override def startAction() = {
     new Thread(new Task[Unit]() {
       override def call(): Unit = {
-        val problem = NPuzzleProblem(board.puzzleState)
+        val problem = NPuzzleProblem(board.puzzleState, board.numHoax)
         if (!problem.goalAchieved) {
           board.controls.solvingStatus()
           val search = GraphSearch()
