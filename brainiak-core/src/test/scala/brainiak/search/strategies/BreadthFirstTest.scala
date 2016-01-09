@@ -38,11 +38,11 @@ class BreadthFirstTest extends FunSuite {
     assert(!search.isEmpty)
     assert(search.contains(new Mock(1)))
     assert(search.actual.equals(new Mock(1)))
-    assert(!search.contains(new Mock(1)))
+//    assert(!search.contains(new Mock(1)))
     assert(!search.isEmpty)
     assert(search.contains(new Mock(2)))
     assert(search.actual.equals(new Mock(2)))
-    assert(!search.contains(new Mock(1)))
+//    assert(!search.contains(new Mock(1)))
     assert(search.isEmpty)
   }
 }
