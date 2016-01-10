@@ -11,8 +11,9 @@ class HumanController(val b: Board) extends BasicController {
 
   override def handleCommand(evt: KeyEvent) = {
     if (evt.getCode.isArrowKey) {
-      val directions = if (board.numHoax == 8) Map(16 -> 1, 17 -> 3, 18 -> -1, 19 -> -3)
-      else Map(16 -> 1, 17 -> 4, 18 -> -1, 19 -> -4)
+      val upDownVal = Math.sqrt(board.numHoax + 1).toInt
+
+      val directions = Map(16 -> 1, 17 -> upDownVal, 18 -> -1, 19 -> -upDownVal)
       val target = directions(evt.getCode.ordinal())
       move(target)
     }
