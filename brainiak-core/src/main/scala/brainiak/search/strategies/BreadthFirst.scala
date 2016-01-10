@@ -4,8 +4,8 @@ import brainiak.search.{Node, Strategy}
 import scala.collection.immutable.Queue
 
 /**
- * Created by thiago on 1/17/14.
- */
+  * Created by thiago on 1/17/14.
+  */
 object BreadthFirst {
   def apply(): BreadthFirst = new BreadthFirst
 }
@@ -29,6 +29,7 @@ class BreadthFirst extends Strategy {
   def actual: Node = {
     val aux = queue.dequeue
     queue = aux._2
+    visited = visited - aux._1
     aux._1
   }
 }

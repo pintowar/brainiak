@@ -4,8 +4,8 @@ import brainiak.search.{Node, Strategy}
 import scala.collection.mutable
 
 /**
- * Created by thiago on 1/17/14.
- */
+  * Created by thiago on 1/17/14.
+  */
 object BestFirst {
   def apply(heuristic: Node => Double): BestFirst = {
     new BestFirst(heuristic)
@@ -21,7 +21,7 @@ class BestFirst(val heuristic: Node => Double) extends Strategy {
   var visited: Set[Node] = Set.empty[Node]
 
   def <<(state: Node): Strategy = {
-    if(!contains(state)) {
+    if (!contains(state)) {
       visited = visited + state
       queue enqueue state
     }
@@ -32,5 +32,9 @@ class BestFirst(val heuristic: Node => Double) extends Strategy {
 
   def isEmpty: Boolean = queue.isEmpty
 
-  def actual: Node = queue.dequeue()
+  def actual: Node = {
+    val n = queue.dequeue()
+    visited = visited - n
+    n
+  }
 }
