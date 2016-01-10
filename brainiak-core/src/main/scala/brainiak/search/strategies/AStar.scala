@@ -18,23 +18,23 @@ class BestFirst(val heuristic: Node => Double) extends Strategy {
       (b.myCost + heuristic(b)).compare(a.myCost + heuristic(a))
   }
   var queue: mutable.PriorityQueue[Node] = new mutable.PriorityQueue[Node]()(HeuristicOrdering)
-  var visited: Set[Node] = Set.empty[Node]
+  var aux: Set[Node] = Set.empty[Node]
 
   def <<(state: Node): Strategy = {
     if (!contains(state)) {
-      visited = visited + state
+      aux = aux + state
       queue enqueue state
     }
     this
   }
 
-  def contains(state: Node): Boolean = visited contains state //queue.exists(n => n == state)
+  def contains(state: Node): Boolean = aux contains state //queue.exists(n => n == state)
 
   def isEmpty: Boolean = queue.isEmpty
 
   def actual: Node = {
     val n = queue.dequeue()
-    visited = visited - n
+    aux = aux - n
     n
   }
 }
