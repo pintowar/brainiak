@@ -10,6 +10,7 @@ object IDAStar {
 }
 
 class IDAStar(val heuristic: Node => Double) {
+  var exploredNodes: Long = 0
 
   def find(problem: Problem): Node = {
     var solution = Option.empty[Node]
@@ -17,16 +18,21 @@ class IDAStar(val heuristic: Node => Double) {
 
     while (solution.isEmpty) {
       val currentCostBound = nextCostBound
+
       solution = depthFirstSearch(problem.initialState, currentCostBound, problem.goal)
       nextCostBound += 2
     }
 
     solution.get
+    /*Stream.from(nextCostBound.toInt, 2)
+      .map(depthFirstSearch(problem.initialState, _, problem.goal))
+      .takeWhile(!_.isEmpty).last.get*/
   }
 
   def depthFirstSearch(current: Node, currentCostBound: Double, goal: Node, parent: Node = null): Option[Node] = {
     if (current.equals(goal)) Option(current)
     else {
+      exploredNodes = exploredNodes + 1
       val nexts = current.successors(if (parent == null) Set.empty[Node] else Set(parent))
       nexts.foreach { n =>
         val cost = n.myCost + heuristic(n)

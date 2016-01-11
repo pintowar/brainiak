@@ -29,16 +29,14 @@ class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state:
   assert(rowSize == Math.sqrt(state.size))
 
 
-  def move(direction: Int): List[Int] = state.synchronized {
-    state.updated(zeroIdx, state(zeroIdx + direction)).updated(zeroIdx + direction, 0)
-  }
+  def move(direction: Int): List[Int] = state.updated(zeroIdx, state(zeroIdx + direction)).updated(zeroIdx + direction, 0)
 
   def canMove(direction: Int): Boolean = nextIdx.contains(direction)
 
   def trackParent: Node = parent
 
-  def nextIdx: Seq[Int] = {
-    Seq(rowSize, 1, -rowSize, -1).filter { p =>
+  val nextIdx: Set[Int] = {
+    Set(rowSize, 1, -rowSize, -1).filter { p =>
       val next = p + zeroIdx
       (next >= 0 && next < state.size) &&
         !(zeroIdx % rowSize == 0 && next % rowSize == rowSize - 1) &&
@@ -51,13 +49,13 @@ class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state:
   def myCost: Double = cost
 
   def -(o: Node): Double = o match {
-    case that: NPuzzleNode => this.state.zip(that.state).count(t => t._1 != t._2)
+    //    case that: NPuzzleNode => this.state.zip(that.state).count(t => t._1 != t._2)
+    case that: NPuzzleNode => (0 until state.size).zip(this.state).filter(_._2 != 0).map(t => (t._1 / rowSize - (t._2 - 1) / rowSize).abs + (t._1 % rowSize - (t._2 - 1) % rowSize).abs).sum
     case _ => Double.PositiveInfinity
   }
 
   def successors(except: Set[Node]): Set[Node] =
-    nextIdx.map(it => new NPuzzleNode(this, depth + 1, cost + 1, move(it), it))
-      .toSet -- except
+    nextIdx.map(it => new NPuzzleNode(this, depth + 1, cost + 1, move(it), it)).toSet -- except
 
   override def toString: String =
     state.sliding(rowSize, rowSize).map(seg => seg.mkString("|")).mkString("\n")

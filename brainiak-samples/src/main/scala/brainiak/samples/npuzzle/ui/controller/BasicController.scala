@@ -40,7 +40,7 @@ abstract class BasicController {
     }).start()
   }
 
-  val obs = channel.map(x => Observable.interval(450 millisecond).map(y => x).take(1)).concat
+  val obs = channel.map(x => Observable.interval(530 millisecond).map(y => x).take(1)).concat
 
   obs.subscribe { x =>
     board.moveAnimation(x)
