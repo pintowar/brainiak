@@ -7,20 +7,20 @@ import scala.util.Random
   * Created by thiago on 1/18/14.
   */
 object NPuzzleNode {
-  def apply(parent: Node, depth: Int, cost: Double, state: List[Int]): NPuzzleNode =
+  def apply(parent: Node, depth: Int, cost: Double, state: Vector[Int]): NPuzzleNode =
     new NPuzzleNode(parent, depth, cost, state, 0)
 
-  def apply(state: List[Int]): NPuzzleNode = new NPuzzleNode(state)
+  def apply(state: Vector[Int]): NPuzzleNode = new NPuzzleNode(state)
 
   def apply(n: Int): NPuzzleNode = new NPuzzleNode(n)
 
   def apply(): NPuzzleNode = new NPuzzleNode()
 }
 
-class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state: List[Int], val movement: Int) extends Node {
-  def this(state: List[Int]) = this(null, 0, 0, state, 0)
+class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state: Vector[Int], val movement: Int) extends Node {
+  def this(state: Vector[Int]) = this(null, 0, 0, state, 0)
 
-  def this(n: Int) = this(null, 0, 0, Random.shuffle((0 until n).toList), 0)
+  def this(n: Int) = this(null, 0, 0, Random.shuffle((0 until n).toVector), 0)
 
   def this() = this(9)
 
@@ -29,7 +29,7 @@ class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state:
   assert(rowSize == Math.sqrt(state.size))
 
 
-  def move(direction: Int): List[Int] = state.updated(zeroIdx, state(zeroIdx + direction)).updated(zeroIdx + direction, 0)
+  def move(direction: Int): Vector[Int] = state.updated(zeroIdx, state(zeroIdx + direction)).updated(zeroIdx + direction, 0)
 
   def canMove(direction: Int): Boolean = nextIdx.contains(direction)
 

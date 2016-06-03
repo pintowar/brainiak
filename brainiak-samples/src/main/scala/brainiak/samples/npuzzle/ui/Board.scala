@@ -26,9 +26,9 @@ class Board(val controls: Controls, val numHoax: Int) extends StackPane {
   var puzzleState: NPuzzleNode = null
   var blankIndex: Int = -1
 
-  if (numHoax == 8) paint(NPuzzleNode(List(6, 0, 2, 1, 4, 8, 7, 3, 5)))
-  else paint(NPuzzleNode(List(6, 11, 15, 3, 2, 4, 14, 13, 7, 5, 0, 1, 12, 9, 10, 8)))
-  //else paint(NPuzzleNode(List(11, 9, 1, 10, 8, 2, 13, 6, 4, 3, 14, 15, 12, 0, 7, 5))) //60 moves
+  if (numHoax == 8) paint(NPuzzleNode(Vector(6, 0, 2, 1, 4, 8, 7, 3, 5)))
+  else paint(NPuzzleNode(Vector(6, 11, 15, 3, 2, 4, 14, 13, 7, 5, 0, 1, 12, 9, 10, 8)))
+  //else paint(NPuzzleNode(Vector(11, 9, 1, 10, 8, 2, 13, 6, 4, 3, 14, 15, 12, 0, 7, 5))) //60 moves
 
   def moveAnimation(target: Int) = {
     if (puzzleState.canMove(target)) {

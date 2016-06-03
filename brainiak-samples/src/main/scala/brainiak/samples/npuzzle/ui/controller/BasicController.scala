@@ -31,7 +31,7 @@ abstract class BasicController {
         var clone = board.puzzleState.clone
         var lastMove = 0
         (0 to 20).foreach { i =>
-          val aux = Random.shuffle(clone.nextIdx filterNot (List(-lastMove) contains)).head
+          val aux = Random.shuffle(clone.nextIdx filterNot (Vector(-lastMove) contains)).head
           move(aux)
           clone = NPuzzleNode(clone.move(aux))
           lastMove = aux
