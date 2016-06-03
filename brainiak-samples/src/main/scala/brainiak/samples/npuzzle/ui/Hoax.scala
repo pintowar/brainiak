@@ -19,8 +19,8 @@ object Hoax {
 
 class Hoax(val value: Int, val wid: Double, val hei: Double) extends StackPane {
   val self = this
-  val aux = Seq(createRectangle())
-  content = if (value == 0) aux else aux ++ Seq(createLabel())
+  val aux = Vector(createRectangle())
+  content = if (value == 0) aux else aux ++ Vector(createLabel())
 
   def createRectangle() = {
     if (self.value != 0) new Rectangle {
@@ -39,7 +39,7 @@ class Hoax(val value: Int, val wid: Double, val hei: Double) extends StackPane {
 
   def createGradient(): LinearGradient = {
     new LinearGradient(0, 0, 1, 1, true, CycleMethod.Reflect,
-      Seq(Stop(0, Black), Stop(1, Green))
+      Vector(Stop(0, Black), Stop(1, Green))
     )
   }
 
