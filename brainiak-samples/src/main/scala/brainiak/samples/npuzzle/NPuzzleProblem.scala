@@ -25,5 +25,5 @@ class NPuzzleProblem(val init: Node, val numPieces: Int) extends Problem {
 
   def current: Node = actual
 
-  def goal: Node = new NPuzzleNode((1 to numPieces toList) :+ 0)
+  def goal: Node = new NPuzzleNode((1 to numPieces toVector) :+ 0)
 }
