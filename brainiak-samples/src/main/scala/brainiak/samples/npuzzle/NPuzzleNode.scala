@@ -26,14 +26,13 @@ class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state:
 
   val zeroIdx = state.indexOf(0)
   val rowSize: Int = Math.sqrt(state.size).toInt
-  assert(rowSize == Math.sqrt(state.size))
-
+//  assert(rowSize == Math.sqrt(state.size))
 
   def move(direction: Int): Vector[Int] = state.updated(zeroIdx, state(zeroIdx + direction)).updated(zeroIdx + direction, 0)
 
   def canMove(direction: Int): Boolean = nextIdx.contains(direction)
 
-  def trackParent: Node = parent
+  val trackParent: Node = parent
 
   val nextIdx: Set[Int] = {
     Set(rowSize, 1, -rowSize, -1).filter { p =>
@@ -44,9 +43,9 @@ class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state:
     }
   }
 
-  def myDepth: Int = depth
+  val myDepth: Int = depth
 
-  def myCost: Double = cost
+  val myCost: Double = cost
 
   def -(o: Node): Double = o match {
     //    case that: NPuzzleNode => this.state.zip(that.state).count(t => t._1 != t._2)
@@ -65,7 +64,7 @@ class NPuzzleNode(val parent: Node, val depth: Int, val cost: Double, val state:
     case _ => false
   }
 
-  override def hashCode = state.size * (rowSize + state.hashCode())
+  override val hashCode = state.size * (rowSize + state.hashCode())
 
   override def clone: NPuzzleNode = new NPuzzleNode(parent, depth, cost, state, movement)
 

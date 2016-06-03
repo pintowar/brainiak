@@ -4,7 +4,7 @@ package brainiak.search
  * Created by thiago on 1/17/14.
  */
 trait Node {
-  type Path = List[Node]
+  type Path = Vector[Node]
 
   def trackParent: Node
 
@@ -19,7 +19,7 @@ trait Node {
   def -(that: Node): Double
 
   def path: Path = {
-    var states = List.empty[Node]
+    var states = Vector.empty[Node]
     var aux: Node = this
     while (aux.trackParent != null) {
       states = states :+ aux
